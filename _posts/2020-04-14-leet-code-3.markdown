@@ -1,0 +1,28 @@
+---
+layout: post
+title:  "move elements"
+categories: coding test
+---
+---
+Input: [0,1,0,3,12]
+Output: [1,3,12,0,0]
+Requires: in-place, no extra memory, but flag is accepted
+---
+Leet Code 30-day challenge: day 4
+
+> O(n)
+<pre> 
+<code>
+func moveZeroes(_ nums: inout [Int]) {
+    var lastIndex = 0
+    (0..<nums.count).forEach { (i) in
+        if nums[i] == 0 { return }
+        nums.insert(nums[i], at: lastIndex)
+        nums.remove(at: i+1)
+        // ** leetCode compiler가 fromOffsets를 인지못함
+        // nums.move(fromOffsets: .init(integer: i), toOffset: lastIndex)
+        lastIndex += 1
+    }
+}
+</code> 
+</pre>
