@@ -1,0 +1,64 @@
+---
+layout: post
+title:  "maxProfit"
+categories: coding test
+---
+
+> Leet Code 30-day challenge: Best Time to Buy and Sell Stock II
+>> Ex1
+Input: [7,1,5,3,6,4]
+Output: 7
+>> Ex2
+Input: [1,2,3,4,5]
+Output: 4
+>> Ex3
+Input: [7,6,4,3,1]
+Output: 0
+
+
+> O(n)  
+
+```swift
+func maxProfit(_ prices: [Int]) -> Int {
+    var n = 0   // min, buy
+    var m = 0   // max, sell
+    var subProfit = m - n
+    var profit = 0
+
+    (0..<prices.count-1).forEach { (i) in
+        if prices[i] > prices[i+1] {
+            m = prices[i]
+        } else {
+            subProfit = prices[i+1] - prices[i]
+            profit += subProfit
+
+            n = prices[i]
+            m = 0
+            subProfit = 0
+        }
+    }
+    return profit
+}
+```
+
+#### 풀이과정
+1 brute force <<안됨. 한번에 1개의 연산만 가능해서 최대 아웃풋을 낼수없는 방법 ㅠㅠ  
+
+2 pair 만들기  
+(Ex1: (1…5), (3…6) or (1…6))  
+(Ex2: (1…5))  
+(Ex3: X)  
+
+2.1 pair안에 pair가 발생했을때 max profit이 나올순 없나?  
+pair안에서는 그냥 linear하기만 해도 되나?  
+
+> test case
+[Ex]           non-linear / linear
+[1,5,3,6]        4 + 3 / 5 
+[1,3,3,4]        2 + 1 / 3 (동일)
+[1,3,2,4]         2 + 2 / 3
+[1,2,3,4]         1 + 1 / 3 
+[1,3,2,10]         2 + 8 / 9
+[1,2,3,6,2,4]    5 + 2 / -
+[3,1,2,6,2,4]     “
+>> linear가 일단 답인듯 하다
