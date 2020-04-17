@@ -6,14 +6,14 @@ categories: coding test
 
 > Leet Code 30-day challenge: Best Time to Buy and Sell Stock II
 >> Ex1
-Input: [7,1,5,3,6,4]
-Output: 7
+>> Input: [7,1,5,3,6,4]  
+>> Output: 7  
 >> Ex2
-Input: [1,2,3,4,5]
-Output: 4
+>> Input: [1,2,3,4,5]  
+>> Output: 4  
 >> Ex3
-Input: [7,6,4,3,1]
-Output: 0
+>> Input: [7,6,4,3,1]  
+>> Output: 0  
 
 
 > O(n)  
@@ -53,12 +53,13 @@ func maxProfit(_ prices: [Int]) -> Int {
 pair안에서는 그냥 linear하기만 해도 되나?  
 
 > test case
-[Ex]           non-linear / linear
-[1,5,3,6]        4 + 3 / 5 
-[1,3,3,4]        2 + 1 / 3 (동일)
-[1,3,2,4]         2 + 2 / 3
-[1,2,3,4]         1 + 1 / 3 
-[1,3,2,10]         2 + 8 / 9
-[1,2,3,6,2,4]    5 + 2 / -
-[3,1,2,6,2,4]     “
+
+[Ex]           non-linear / linear  
+[1,5,3,6]        4 + 3 / 5   
+[1,3,3,4]        2 + 1 / 3 (동일)  
+[1,3,2,4]         2 + 2 / 3  
+[1,2,3,4]         1 + 1 / 3   
+[1,3,2,10]         2 + 8 / 9  
+[1,2,3,6,2,4]    5 + 2 / -  
+[3,1,2,6,2,4]     “  
 >> linear가 일단 답인듯 하다
