@@ -1,0 +1,58 @@
+---
+layout: post
+title:  "groupAnagrams"
+categories: coding test
+---
+
+> Leet Code 30-day challenge: Group Anagrams
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
+Output: [
+["ate","eat","tea"],
+["nat","tan"],
+["bat"]
+]
+
+
+> O(n)  
+
+```swift
+
+func groupAnagrams(_ strs: [String]) -> [[String]] {
+var hashSet: [(i: Int, hash: Int)] = []
+
+// 1. alphabet 같은 요소들에 flag 적용
+strs.enumerated().forEach { (i, item) in
+let set = (i, item.sorted().hashValue)
+hashSet.append(set)
+}
+hashSet.sort { return $0.hash < $1.hash }
+
+// 2. subarray 만들기 + index로 str 찾기
+var strArrs: [[String]] = []
+var strArr: [String]
+
+let initIndex = hashSet[0].i
+strArr = [strs[initIndex]]
+
+if hashSet.count < 2 {
+strArrs.append(strArr)
+
+} else {
+(0..<hashSet.count-1).forEach { (i) in
+let index = hashSet[i+1].i
+if hashSet[i].hash == hashSet[i+1].hash {
+strArr.append(strs[index])
+} else {
+strArrs.append(strArr)
+strArr = [strs[index]]
+}
+
+if i == hashSet.count-2 {
+strArrs.append(strArr)
+strArr = []
+}
+}
+}
+return strArrs
+}
+```
