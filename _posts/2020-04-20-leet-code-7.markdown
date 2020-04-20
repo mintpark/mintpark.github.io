@@ -1,0 +1,36 @@
+---
+layout: post
+title:  "countElements"
+categories: coding test
+---
+
+> Leet Code 30-day challenge: Count Elements
+
+Input // Output  
+let a = [1,2,3] // 2  
+let b = [1,1,3,3,5,5,7,7] // 0  
+let c = [1,3,2,3,5,0] // 3  
+let d = [1,1,2,2] // 2  
+let e = [1,1,2] // 2  
+let g: [Int] = [] // 0  
+
+
+> O(n)  
+
+```swift
+/*
+1. 삭제..를 둘다 하면 안된다. 앞에거만 삭제하면 괜찮지 않을까. 아니 삭제할 필요도 없다.
+2. arr[i+1]과 비교하면 안된다. set 써야겟다.
+*/
+
+func countElements(_ arr: [Int]) -> Int {
+    let set = Set(arr)
+    var count = 0
+
+    arr.sorted().forEach { (n) in
+        guard set.contains(n+1) else { return }
+        count += 1
+    }
+    return count
+}
+```
