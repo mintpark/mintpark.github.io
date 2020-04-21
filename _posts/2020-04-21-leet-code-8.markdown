@@ -1,0 +1,94 @@
+---
+layout: post
+title:  "middleNode"
+categories: coding test
+---
+
+> Leet Code 30-day challenge: Middle Node
+
+> Base Definition
+
+```swift
+class ListNode {
+    var val: Int
+    var next: ListNode?
+    init(_ val: Int) {
+        self.val = val
+        self.next = nil
+    }
+}
+
+struct LinkedList {
+    var head: ListNode? = nil
+//    var tail: ListNode? = nil
+
+    var count: Int = 0
+
+    mutating func push(_ value: Int) {
+        let node = ListNode(value)
+        node.next = head
+        head = node
+        count += 1
+    }
+}
+```
+
+> Test Case
+
+// Input // Output   
+let a = [1,2,3,4,5] // [3,4,5]  
+let b = [1,2,3,4,5,6] // [4,5,6]  
+let c: [Int] = [] // []  
+let d = [1] // [1]  
+
+```swift
+var list = LinkedList()  
+b.forEach { (n) in  
+list.push(n)  
+}  
+list.head?.next
+list.count
+```
+
+> O(n)  
+
+```swift
+/*
+이건 어레이가 아니다. 링크드리스트다.
+linked list의 head가 주어진거지, 어레이가 주어진게 아니다.
+
+1. next == nil 나올때까지 size 재서 중간값 가져오면 될거같은데..?
+*/
+
+func middleNode(_ head: ListNode?) -> ListNode? {
+    var count = 0
+    var next: ListNode? = head
+    var target: ListNode? = head
+
+    while next != nil {
+        count += 1
+        next = next?.next
+    }
+
+    guard count > 0 else { return nil }
+ 
+    (0..<count/2).forEach { _ in
+        target = target?.next
+    }
+    return target
+}
+```
+
+> O(logN)
+```swift
+func middleNode(_ head: ListNode?) -> ListNode? {
+    var slow: ListNode? = head
+    var fast: ListNode? = head
+
+    while fast?.next?.next != nil {
+        fast = fast?.next?.next
+        slow = slow?.next
+    }
+    return slow
+}
+```
