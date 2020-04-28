@@ -1,0 +1,99 @@
+---
+layout: post
+title:  "backspaceCompare"
+categories: coding test
+---
+
+> Leet Code 30-day challenge: Backspace Compare
+
+> Base Definition
+
+```swift
+class Stack {
+    var data: [Character] = []
+
+    func push(_ c: Character) {
+        data.append(c)
+    }
+    func pop() {
+        guard data.count > 0 else { return }
+        data.removeLast()
+    }
+    func clear() {
+        data = []
+    }
+}
+```
+
+> Test Case
+
+// Input // Output   
+let a = ("ab#c", "ad#c")     // t  
+let b = ("ab##", "c#d#")    // t  
+let c = ("a##c", "#a#c")    // t  
+let d = ("a#c", "b")            // f  
+
+
+> O(n)  time, O(n) space
+
+```swift
+/*
+1. 반대로 쌓아가기
+2. 문자의 다음이 #이면 해당 문자 지우기
+3. 세트의 갯수 세기
+4. stack << 이거다
+*/
+
+func backspaceCompare(_ S: String, _ T: String) -> Bool {
+    let stack = Stack()
+    let s: [Character]
+    let t: [Character]
+
+    S.forEach { (c) in
+        c == "#" ? stack.pop() : stack.push(c)
+    }
+    s = stack.data
+
+    stack.clear()
+
+    T.forEach { (c) in
+        c == "#" ? stack.pop() : stack.push(c)
+    }
+    t = stack.data
+
+    return s.elementsEqual(t)
+}
+```
+
+> O(n) time, O(1) space
+```swift
+func backspaceCompare(_ S: String, _ T: String) -> Bool {
+    var back = 0
+    var i = S.count - 1
+    var j = T.count - 1
+
+    let s = S.map { $0 }
+    let t = T.map { $0 }
+
+    while (true) {
+        back = 0
+        while (i >= 0 && (back > 0 || s[i] == "#")) {
+            back += (s[i] == "#" ? 1 : -1)
+            i-=1
+        }
+        back = 0
+        while (j >= 0 && (back > 0 || t[j] == "#")) {
+            back += t[j] == "#" ? 1 : -1
+            j-=1
+        }
+        print("i: \(i), j: \(j)")
+        if (i >= 0 && j >= 0 && s[i] == t[j]) {
+            i-=1
+            j-=1
+        } else {
+            break
+        }
+    }
+    return i == -1 && j == -1
+}
+```
