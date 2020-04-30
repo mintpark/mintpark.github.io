@@ -1,0 +1,97 @@
+---
+layout: post
+title:  "Min Stack"
+categories: coding test
+---
+
+> Leet Code 30-day challenge: Min Stack
+
+> Test Case
+
+// Input
+["MinStack","push","push","push","getMin","pop","top","getMin"]  
+[[],[-2],[0],[-3],[],[],[],[]]  
+
+// Output  
+[null,null,null,null,-3,null,0,-2]  
+
+
+> (Passed)
+
+```swift
+/*
+    노드로 하라고?
+*/
+
+class Node {
+    let value: Int
+    let min: Int
+    var next: Node? = nil
+
+    init(value: Int, min: Int) {
+        self.value = value
+        self.min = min
+    }
+}
+
+class MinStack {
+    private var head: Node? = nil   
+
+    func push(_ x: Int) {
+        guard let validHead = head else {
+        let node = Node(value: x, min: x)
+        head = node
+        return
+    }
+    let node = Node(value: x, min: min(x, validHead.min))
+        node.next = head
+        head = node
+    }
+
+    func pop() {
+        guard let last = head?.next else { return }
+        last.next = head
+        head = last
+    }
+
+    func topNode() -> Node? {
+        return head
+    }
+
+    func top() -> Int {
+        guard let validHead = head else { return -9999 }
+        return validHead.value
+    }
+
+    func getMin() -> Int {
+        guard let validHead = head else { return -9999 }
+        return validHead.min
+    }
+}
+```
+
+> (Time Exceed)
+```swift
+class MinStack {
+    private var stack: [Int] = []
+
+    func push(_ x: Int) {
+        stack.append(x)
+    }
+
+    func pop() {
+        stack.removeLast()
+    }
+
+    func top() -> Int {
+        guard let top = stack.last else { return -9999 }
+        return top
+    }
+
+    func getMin() -> Int {
+        guard stack.count > 0 else { return -9999 }
+        let result = stack.reduce(stack[0]) { min($0, $1) }
+        return result
+    }
+}
+```
