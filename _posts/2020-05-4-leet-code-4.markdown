@@ -1,0 +1,43 @@
+---
+layout: post
+title:  "find Complement"
+categories: coding test
+---
+
+> Leet Code May Challenge: Find Complement
+
+> Test Case
+
+// Input // Output  
+5(101) // 2(010)  
+1(01) // 0(00)    
+
+
+> (Passed)
+
+```swift
+/*
+complements number: 보수. 여기서는 1의보수.
+5 -> 101 -> 010
+*/
+
+func findComplement(_ num: Int) -> Int {
+    var remains: [Int] = []
+    var quotient = num
+    var result = 0
+
+    while quotient > 1 {
+        remains.append(quotient%2)
+        quotient/=2
+    }
+    remains.append(quotient)
+
+    var hat = 1
+    remains.forEach { isComplement2 in
+        if isComplement2 == 0 { result += hat }
+        hat*=2
+    }
+
+    return result
+}
+```
