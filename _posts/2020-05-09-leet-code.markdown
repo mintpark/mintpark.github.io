@@ -1,0 +1,38 @@
+---
+layout: post
+title:  "checkStraightLine"
+categories: coding test
+---
+
+> Leet Code May Challenge: check Straight Line
+
+> (Passed)
+
+```swift
+func checkStraightLine(_ coordinates: [[Int]]) -> Bool {
+    var ds: [Float] = []
+
+    // 1.
+    (0..<(coordinates.count-1)).forEach { i in
+        let p1 = coordinates[i]
+        let p2 = coordinates[i+1]
+
+        let dx = p2[0] - p1[0]
+        let dy = p2[1] - p1[1]
+
+        if dx == 0 { ds.append(0); return; }
+        else if dy == 0 { ds.append(Float.leastNonzeroMagnitude); return; } else {
+            ds.append(Float(dy/dx))
+        }
+    }
+
+    // 2.
+    var result = true
+    (1..<ds.count).forEach { (i) in
+        if ds[i-1] != ds[i] {
+            result = false
+        }
+    }
+    return result
+}
+```
